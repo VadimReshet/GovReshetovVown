@@ -51,17 +51,17 @@
         // Векторні Іконки
         const IconShield = ({className}) => <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>;
         const IconFileText = ({className}) => <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>;
-const IconUserCheck = ({className}) => ;
+        const IconUserCheck = ({className}) => <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5c-2.2 0-4 1.8-4 4v2"/><circle cx="8.5" cy="7" r="4"/><polyline points="17 11 19 13 23 9"/></svg>;
         const IconAlertTriangle = ({className}) => <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>;
-const IconClock = ({className}) => ;
+        const IconClock = ({className}) => <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>;
         const IconSearch = ({className}) => <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>;
         const IconMenu = ({className}) => <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>;
-const IconChevronRight = ({className}) => ;
-const IconChevronDown = ({className}) => ;
+        const IconChevronRight = ({className}) => <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="9 18 15 12 9 6"/></svg>;
+        const IconChevronDown = ({className}) => <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="6 9 12 15 18 9"/></svg>;
         const IconInfo = ({className}) => <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>;
-const IconScale = ({className}) => ;
+        const IconScale = ({className}) => <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M16 16l3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="M2 16l3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="M7 21h10"/><path d="M12 3v18"/><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"/></svg>;
         const IconX = ({className}) => <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>;
-const IconDownload = ({className}) => ;
+        const IconDownload = ({className}) => <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>;
         const IconUser = ({className}) => <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>;
         const IconCamera = ({className}) => <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>;
         const IconMapPin = ({className}) => <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>;
@@ -103,12 +103,55 @@ const IconDownload = ({className}) => ;
             </div>
         );
 
+        const KantselyariyaSeal = () => (
+            <div className="relative w-32 sm:w-40 h-32 sm:h-40 opacity-90 text-blue-900 transform rotate-[-15deg] mix-blend-multiply flex items-center justify-center">
+            <svg viewBox="0 0 100 100" className="absolute inset-0 w-full h-full">
+                <circle cx="50" cy="50" r="48" fill="none" stroke="currentColor" strokeWidth="3" />
+                <circle cx="50" cy="50" r="44" fill="none" stroke="currentColor" strokeWidth="1" strokeDasharray="2,2" />
+                <circle cx="50" cy="50" r="28" fill="none" stroke="currentColor" strokeWidth="0.5" />
+                <path id="kan-text-path-top" d="M 12, 50 A 38,38 0 0,1 88,50" fill="none" />
+                <path id="kan-text-path-bot" d="M 88, 50 A 38,38 0 0,1 12,50" fill="none" />
+                <text fontSize="6" fontWeight="bold" fill="currentColor" letterSpacing="1">
+                <textPath href="#kan-text-path-top" startOffset="50%" textAnchor="middle">АПАРАТ УПРАВЛІННЯ АКТИВАМИ</textPath>
+                </text>
+                <text fontSize="6" fontWeight="bold" fill="currentColor" letterSpacing="1">
+                <textPath href="#kan-text-path-bot" startOffset="50%" textAnchor="middle">ПАНА РЕШЕТОВА В.О.</textPath>
+                </text>
+            </svg>
+            <div className="text-center font-bold text-blue-900">
+                <div className="text-2xl sm:text-3xl font-serif leading-none">Р В</div>
+                <div className="text-[5px] sm:text-[6px] border-t border-b border-blue-900 mt-1 py-0.5">ПЕЧАТКА №1</div>
+            </div>
+            </div>
+        );
+
+        const ConvoySeal = () => (
+            <div className="relative w-28 sm:w-32 h-28 sm:h-32 opacity-90 text-blue-900 transform rotate-12 mix-blend-multiply flex items-center justify-center">
+            <svg viewBox="0 0 100 100" className="absolute inset-0 w-full h-full">
+                <circle cx="50" cy="50" r="48" fill="none" stroke="currentColor" strokeWidth="2" />
+                <circle cx="50" cy="50" r="45" fill="none" stroke="currentColor" strokeWidth="0.5" />
+                <path id="con-text-path-top" d="M 12, 50 A 38,38 0 0,1 88,50" fill="none" />
+                <path id="con-text-path-bot" d="M 88, 50 A 38,38 0 0,1 12,50" fill="none" />
+                <text fontSize="6" fontWeight="bold" fill="currentColor" letterSpacing="0.5">
+                <textPath href="#con-text-path-top" startOffset="50%" textAnchor="middle">ДЕПАРТАМЕНТ ІНВЕНТАРИЗАЦІЇ</textPath>
+                </text>
+                <text fontSize="6" fontWeight="bold" fill="currentColor" letterSpacing="1">
+                <textPath href="#con-text-path-bot" startOffset="50%" textAnchor="middle">ТА КОНВОЮВАННЯ</textPath>
+                </text>
+            </svg>
+            <div className="text-center font-bold text-blue-900">
+                <div className="text-xl sm:text-2xl font-serif leading-none">Д І К</div>
+                <div className="text-[4px] sm:text-[5px] border-t border-b border-blue-900 mt-1 py-0.5">СПРАВА №404</div>
+            </div>
+            </div>
+        );
+
         function App() {
             const [activeTab, setActiveTab] = useState('status'); 
             const [selectedDecree, setSelectedDecree] = useState(null);
             const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-            // Закриття меню при кліку поза ним (імітація)
+            // Закриття меню при кліку поза ним
             const handleTabChange = (tab) => {
                 setActiveTab(tab);
                 setIsMobileMenuOpen(false);
@@ -169,6 +212,105 @@ const IconDownload = ({className}) => ;
                         <div className="absolute -top-12 sm:-top-8 -right-4 sm:right-0 z-0 scale-[0.6] sm:scale-100 origin-right pointer-events-none">
                             <PresidentialSeal />
                         </div>
+                        </div>
+                    </div>
+                    </div>
+                )
+                },
+                {
+                id: "02-МЕ/2026",
+                date: "07.04.2026",
+                title: "Офіційне роз'яснення щодо статусу тимчасового базування об'єкта «Михайло» у громадянці Скопіної А.О.",
+                type: "Розпорядження Канцелярії",
+                status: "Чинний",
+                docType: "kantselyariya",
+                content: (
+                    <div className="font-sans text-gray-900 space-y-4 sm:space-y-6 text-sm sm:text-base">
+                    <div className="border-b-2 border-gray-800 pb-4 mb-6 sm:mb-8">
+                        <h1 className="text-lg sm:text-xl font-bold uppercase text-center">Апарат управління активами пана Решетова В.О.</h1>
+                        <h2 className="text-base sm:text-lg font-semibold text-center mt-2">Юридичний відділ</h2>
+                        <p className="text-right mt-4 text-xs sm:text-sm font-mono">Вих. № 02-МЕ/2026 від 07.04.2026 р.</p>
+                    </div>
+                    
+                    <div className="mb-4 sm:mb-6 bg-gray-50 p-3 sm:p-4 border border-gray-200 rounded">
+                        <p><strong>Кому:</strong> Громадянці Скопіній Анастасії Олегівні (відповідальній зберігачці)</p>
+                        <p className="mt-1"><strong>Тема:</strong> Про статус тимчасового базування об'єкта «Михайло» та штрафні санкції</p>
+                    </div>
+
+                    <h3 className="text-base sm:text-lg font-bold text-center mb-4 uppercase">Офіційне роз'яснення</h3>
+                    
+                    <p className="text-justify indent-4 sm:indent-8"><strong>Шановна пані Анастасійо!</strong></p>
+                    <p className="text-justify indent-4 sm:indent-8">
+                        З метою уникнення подальших юридичних колізій та Ваших ілюзій щодо повного контролю над ситуацією, Юридичний відділ Апарату управління надає офіційне роз'яснення щодо поточного місця проживання об'єкта «Завалковський М.О.».
+                    </p>
+                    
+                    <div className="space-y-4 mt-4 sm:mt-6">
+                        <p className="text-justify"><strong>1. Про статус тимчасового проживання:</strong><br/>
+                        Той факт, що Михайло наразі проживає з Вами, жодним чином не скасовує Указ № 404/2026. Відповідно до статті 12 "Про оптимізацію витрат правовласника", Ваша житлова площа наразі офіційно класифікується як <strong>«Пункт безкоштовної перетримки, відгодівлі та базового техобслуговування»</strong>. Пан Решетов В.О. тимчасово делегував Вам рутинні процеси експлуатації (годування борщем, прасування футболок), зберігаючи за собою ексклюзивні права на управління.</p>
+
+                        <p className="text-justify"><strong>2. Про передачу під варту:</strong><br/>
+                        Офіційно повідомляємо, що найближчим часом об'єкт має бути переданий під варту пана Решетова для проведення планової інвентаризації та калібрування життєвих пріоритетів. Дату та час вилучення буде повідомлено додатково.</p>
+
+                        <p className="text-justify text-red-700 bg-red-50 p-3 rounded"><strong>3. Про штрафні санкції (УВАГА!):</strong><br/>
+                        У разі відмови видати Михайла на першу ж вимогу або затримки процесу передачі, на Вас буде накладено щоденну пеню. За кожну добу незаконного утримання стягуватиметься: 50 грамів преміального китайського чаю (Да Хун Пао або Пуер) АБО примусове прослуховування 4-годинної аудіолекції про лор Warhammer 40,000.</p>
+                    </div>
+
+                    <p className="mt-6 sm:mt-8 italic text-justify">Просимо ставитися до майна пана Решетова дбайливо. Зберігайте Михайла у теплому місці та своєчасно годуйте до моменту його етапування.</p>
+
+                    <div className="mt-12 flex flex-col sm:flex-row justify-between items-start sm:items-end gap-6 sm:gap-0">
+                        <div className="font-bold order-2 sm:order-1">
+                        <p>З повагою,</p>
+                        <p>Служба логістики та примусового стягнення боргів</p>
+                        </div>
+                        <div className="relative pr-2 sm:pr-8 order-1 sm:order-2 self-end">
+                        <KantselyariyaSeal />
+                        </div>
+                    </div>
+                    </div>
+                )
+                },
+                {
+                id: "03-МЕ/2026",
+                date: "07.04.2026",
+                title: "Вимога щодо підготовки тривожної валізки та готовності до негайного етапування",
+                type: "Постанова",
+                status: "На виконанні",
+                docType: "kantselyariya",
+                content: (
+                    <div className="font-sans text-gray-900 space-y-4 sm:space-y-6 text-sm sm:text-base">
+                    <div className="border-b-2 border-gray-800 pb-4 mb-6 sm:mb-8">
+                        <h1 className="text-lg sm:text-xl font-bold uppercase text-center">Апарат управління активами пана Решетова В.О.</h1>
+                        <h2 className="text-base sm:text-lg font-semibold text-center mt-2">Департамент інвентаризації та конвоювання</h2>
+                        <p className="text-right mt-4 text-xs sm:text-sm font-mono">Справа № 404-МІША</p>
+                    </div>
+
+                    <h3 className="text-lg sm:text-xl font-bold text-center mb-4 uppercase text-red-700">ВИТЯГ З ЄДИНОГО ДЕРЖАВНОГО РЕЄСТРУ</h3>
+                    <p className="text-center font-bold bg-yellow-100 py-2 border border-yellow-300 text-sm sm:text-base">СТАТУС: Офіційне попередження перед етапуванням</p>
+
+                    <p className="text-justify mt-4 sm:mt-6"><strong>Кому:</strong> Завалковському Михайлу Олександровичу (Інвентарний № 21102005)</p>
+
+                    <p className="text-justify indent-4 sm:indent-8 mt-4"><strong>Шановний (поки що) Завалковський М.О.!</strong></p>
+                    <p className="text-justify indent-4 sm:indent-8">
+                        Цим листом Офіс повідомляє про успішне завершення вашого тестового періоду незалежності. Для уникнення паніки та зайвих рухів тіла, надсилаємо офіційну інструкцію щодо того, до чого Вам слід готуватися:
+                    </p>
+
+                    <ul className="list-disc pl-6 sm:pl-8 space-y-2 sm:space-y-3 mt-4 text-justify">
+                        <li><strong>Ваш поточний статус:</strong> Ви перебуваєте на території пункту тимчасової перетримки "Анастасія". Будь-які накази громадянки Скопіної А.О. мають для вас виключно рекомендаційний характер.</li>
+                        <li><strong>Підготовка до вилучення:</strong> У найближчий час за вами прибуде конвой. Ви зобов'язані мати "тривожну валізку": гарний настрій, девайси для кооперативних ігор, особисту чашку для китайського чаю.</li>
+                        <li><strong>Нові обов'язки:</strong> Миттєво реагувати на повідомлення Правовласника, схвально кивати під час розповідей, бути готовим до перевірок знань лору <em>Warhammer 40,000</em>.</li>
+                    </ul>
+
+                    <div className="bg-gray-100 p-3 sm:p-4 border-l-4 border-red-600 mt-6 text-xs sm:text-sm">
+                        <strong>ЗАБОРОНЯЄТЬСЯ:</strong> Генерувати крінж без письмової згоди Правовласника. Скиглити, посилатися на втому або намагатися втекти назад на склад "Анастасія".
+                    </div>
+
+                    <div className="mt-10 sm:mt-12 flex flex-col sm:flex-row justify-between items-start sm:items-end border-t pt-6 sm:pt-8 gap-6 sm:gap-0">
+                        <div className="text-xs sm:text-sm text-gray-600 italic order-2 sm:order-1">
+                        Документ згенеровано автоматично.<br/>
+                        Підписано електронним цифровим підписом «Той самий, що опух».
+                        </div>
+                        <div className="relative pr-2 sm:pr-8 order-1 sm:order-2 self-end">
+                        <ConvoySeal />
                         </div>
                     </div>
                     </div>
@@ -582,7 +724,7 @@ const IconDownload = ({className}) => ;
                                                 width="100%" 
                                                 height="100%" 
                                                 style={{border:0}} 
-                                                allowFullScreen="" 
+                                                allowFullScreen={true}
                                                 loading="lazy" 
                                                 referrerPolicy="no-referrer-when-downgrade"
                                                 className="absolute inset-0"
@@ -650,4 +792,4 @@ const IconDownload = ({className}) => ;
         root.render(<App />);
     </script>
 </body>
-</html> 
+</html>
