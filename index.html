@@ -52,6 +52,7 @@
                         'soft': '0 20px 40px -15px rgba(0,0,0,0.1)',
                         'glow': '0 0 20px rgba(0, 91, 171, 0.3)',
                         'red-glow': '0 0 30px rgba(220, 38, 38, 0.4)',
+                        'gold-glow': '0 0 30px rgba(255, 213, 0, 0.3)',
                     }
                 }
             }
@@ -82,6 +83,12 @@
             background-size: 100% 2px, 3px 100%;
             pointer-events: none;
         }
+        /* Custom Gradient Text */
+        .text-gradient-gold {
+            background: linear-gradient(to right, #FFD500, #FBB03B);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
     </style>
 </head>
 <body class="bg-[#f8fafc] text-gray-800 antialiased overflow-x-hidden selection:bg-[#FFD500] selection:text-[#005BAB]">
@@ -90,8 +97,8 @@
     <script type="text/babel">
         const { useState, useEffect, useRef } = React;
 
-        // Векторні Дизайнерські Іконки (Lucide/Phosphor style)
-        const IconShield = ({className}) => <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>;
+        // Векторні Дизайнерські Іконки
+        const IconShield = ({className}) => <svg className={className} viewBox="0 0 24 24" fill="url(#blueGrad)" stroke="currentColor" strokeWidth="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>;
         const IconFileText = ({className}) => <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>;
         const IconUserCheck = ({className}) => <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M16 21v-2a4 4 0 0 0-4-4H5c-2.2 0-4 1.8-4 4v2"/><circle cx="8.5" cy="7" r="4"/><polyline points="17 11 19 13 23 9"/></svg>;
         const IconAlertTriangle = ({className}) => <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>;
@@ -101,21 +108,21 @@
         const IconChevronRight = ({className}) => <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><polyline points="9 18 15 12 9 6"/></svg>;
         const IconChevronDown = ({className}) => <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><polyline points="6 9 12 15 18 9"/></svg>;
         const IconInfo = ({className}) => <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>;
-        const IconScale = ({className}) => <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M16 16l3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="M2 16l3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="M7 21h10"/><path d="M12 3v18"/><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"/></svg>;
+        const IconScale = ({className}) => <svg className={className} viewBox="0 0 24 24" fill="url(#blueGrad)" stroke="currentColor" strokeWidth="1.5"><path d="M16 16l3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="M2 16l3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="M7 21h10"/><path d="M12 3v18"/><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"/></svg>;
         const IconX = ({className}) => <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>;
         const IconDownload = ({className}) => <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>;
         const IconUser = ({className}) => <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>;
         const IconCamera = ({className}) => <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>;
         const IconMapPin = ({className}) => <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>;
         const IconMail = ({className}) => <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>;
-        const IconPhone = ({className}) => <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>;
+        const IconPhone = ({className}) => <svg className={className} viewBox="0 0 24 24" fill="url(#greenGrad)" stroke="currentColor" strokeWidth="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>;
         const IconExternalLink = ({className}) => <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>;
-        const IconAward = ({className}) => <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>;
-        const IconTarget = ({className}) => <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>;
-        const IconSkull = ({className}) => <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><circle cx="9" cy="12" r="1"/><circle cx="15" cy="12" r="1"/><path d="M8 20v2h8v-2"/><path d="M12.5 17l-.5-1-.5 1h1z"/><path d="M16 20a2 2 0 0 0 1.56-2.25 8 8 0 1 0-11.12 0A2 2 0 0 0 8 20"/></svg>;
+        const IconAward = ({className}) => <svg className={className} viewBox="0 0 24 24" fill="url(#goldGrad)" stroke="currentColor" strokeWidth="1.5"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>;
+        const IconTarget = ({className}) => <svg className={className} viewBox="0 0 24 24" fill="url(#purpleGrad)" stroke="currentColor" strokeWidth="1.5"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>;
+        const IconSkull = ({className}) => <svg className={className} viewBox="0 0 24 24" fill="url(#redGrad)" stroke="currentColor" strokeWidth="1.5"><circle cx="9" cy="12" r="1"/><circle cx="15" cy="12" r="1"/><path d="M8 20v2h8v-2"/><path d="M12.5 17l-.5-1-.5 1h1z"/><path d="M16 20a2 2 0 0 0 1.56-2.25 8 8 0 1 0-11.12 0A2 2 0 0 0 8 20"/></svg>;
         const IconBrain = ({className}) => <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2Z"/><path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2Z"/></svg>;
         const IconGamepad2 = ({className}) => <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><line x1="6" y1="12" x2="10" y2="12"/><line x1="8" y1="10" x2="8" y2="14"/><line x1="15" y1="13" x2="15.01" y2="13"/><line x1="18" y1="11" x2="18.01" y2="11"/><rect x="2" y="6" width="20" height="12" rx="2"/></svg>;
-        const IconCoffee = ({className}) => <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M17 8h1a4 4 0 1 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/><line x1="6" y1="2" x2="6" y2="4"/><line x1="10" y1="2" x2="10" y2="4"/><line x1="14" y1="2" x2="14" y2="4"/></svg>;
+        const IconCoffee = ({className}) => <svg className={className} viewBox="0 0 24 24" fill="url(#greenGrad)" stroke="currentColor" strokeWidth="1.5"><path d="M17 8h1a4 4 0 1 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/><line x1="6" y1="2" x2="6" y2="4"/><line x1="10" y1="2" x2="10" y2="4"/><line x1="14" y1="2" x2="14" y2="4"/></svg>;
         const IconFingerprint = ({className}) => <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M2 12C2 6.48 6.48 2 12 2s10 4.48 10 10"/><path d="M5 12c0-3.87 3.13-7 7-7s7 3.13 7 7"/><path d="M8 12c0-2.21 1.79-4 4-4s4 1.79 4 4"/><path d="M11 12c0-.55.45-1 1-1s1 .45 1 1"/><path d="M2 16h.01"/><path d="M21.99 16h.01"/><path d="M5 16h.01"/><path d="M18.99 16h.01"/><path d="M8 16h.01"/><path d="M15.99 16h.01"/><path d="M11 16h.01"/><path d="M13.99 16h.01"/></svg>;
 
         const Tryzub = ({ className }) => (
@@ -198,19 +205,19 @@
         );
 
         // Компонент Акордеон для інтерактивних списків
-        const Accordion = ({ title, icon: Icon, children, color = "blue" }) => {
-            const [isOpen, setIsOpen] = useState(false);
+        const Accordion = ({ title, icon: Icon, children, color = "blue", defaultOpen = false }) => {
+            const [isOpen, setIsOpen] = useState(defaultOpen);
             const colorClasses = {
-                blue: "text-[#005BAB] bg-blue-50 border-blue-200 group-hover:bg-blue-100",
-                green: "text-green-700 bg-green-50 border-green-200 group-hover:bg-green-100",
-                red: "text-red-700 bg-red-50 border-red-200 group-hover:bg-red-100",
-                purple: "text-purple-700 bg-purple-50 border-purple-200 group-hover:bg-purple-100",
-                yellow: "text-yellow-700 bg-yellow-50 border-yellow-200 group-hover:bg-yellow-100",
+                blue: "text-[#005BAB] bg-blue-50/50 border-blue-200 group-hover:bg-blue-100",
+                green: "text-green-700 bg-green-50/50 border-green-200 group-hover:bg-green-100",
+                red: "text-red-700 bg-red-50/50 border-red-200 group-hover:bg-red-100",
+                purple: "text-purple-700 bg-purple-50/50 border-purple-200 group-hover:bg-purple-100",
+                yellow: "text-yellow-700 bg-yellow-50/50 border-yellow-200 group-hover:bg-yellow-100",
             };
             const currentColors = colorClasses[color];
 
             return (
-                <div className={`border rounded-2xl mb-4 overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 bg-white ${isOpen ? 'ring-2 ring-opacity-50 ring-'+color+'-400 border-transparent' : 'border-gray-200'}`}>
+                <div className={`border rounded-2xl mb-4 overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 bg-white ${isOpen ? 'ring-2 ring-opacity-50 ring-'+color+'-400 border-transparent shadow-md' : 'border-gray-200'}`}>
                     <button 
                         onClick={() => setIsOpen(!isOpen)} 
                         className="w-full px-5 py-4 sm:px-6 sm:py-5 flex justify-between items-center focus:outline-none bg-white hover:bg-gray-50 transition-colors group"
@@ -226,7 +233,7 @@
                         </div>
                     </button>
                     <div className={`transition-all duration-500 ease-in-out ${isOpen ? 'max-h-[1000px] opacity-100' : 'max-h-0 opacity-0'}`}>
-                        <div className="px-5 pb-5 pt-1 sm:px-6 sm:pb-6 sm:pt-2 border-t border-gray-100">
+                        <div className="px-6 pb-6 pt-1 sm:px-8 sm:pb-8 sm:pt-2 border-t border-gray-100">
                             {children}
                         </div>
                     </div>
@@ -409,6 +416,32 @@
             return (
                 <div className="min-h-screen bg-[#f8fafc] font-sans text-gray-800 relative flex flex-col">
                 
+                {/* Додамо SVG градієнти для іконок */}
+                <svg width="0" height="0" className="absolute">
+                    <defs>
+                        <linearGradient id="blueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stopColor="#005BAB" />
+                            <stop offset="100%" stopColor="#3b82f6" />
+                        </linearGradient>
+                        <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stopColor="#eab308" />
+                            <stop offset="100%" stopColor="#FFD500" />
+                        </linearGradient>
+                        <linearGradient id="greenGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stopColor="#16a34a" />
+                            <stop offset="100%" stopColor="#22c55e" />
+                        </linearGradient>
+                        <linearGradient id="redGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stopColor="#dc2626" />
+                            <stop offset="100%" stopColor="#ef4444" />
+                        </linearGradient>
+                        <linearGradient id="purpleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stopColor="#7e22ce" />
+                            <stop offset="100%" stopColor="#a855f7" />
+                        </linearGradient>
+                    </defs>
+                </svg>
+
                 {/* Хедер (М'який Градієнт) */}
                 <header className="bg-gradient-to-r from-[#004a8b] to-[#005BAB] text-white shadow-lg sticky top-0 z-40 border-b border-blue-400/30">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -491,7 +524,7 @@
                                 <p className="text-sm sm:text-base text-gray-500 font-medium">Єдина база беззаперечного контролю за життєдіяльністю підпорядкованих одиниць.</p>
                             </div>
                             <div className="w-full md:w-auto px-5 py-2.5 bg-green-50 text-green-700 rounded-xl flex items-center justify-center font-bold border border-green-200 shadow-sm text-sm sm:text-base transition-transform hover:scale-105">
-                                <IconUserCheck className="w-5 h-5 mr-2" />
+                                <IconUserCheck className="w-5 h-5 mr-2 text-green-600" />
                                 Система працює штатно
                             </div>
                         </div>
@@ -515,7 +548,7 @@
                                 <div className="bg-gradient-to-r from-gray-100 to-gray-50 px-6 py-5 border-b border-gray-200 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-0 relative z-10">
                                     <span className="font-mono text-base text-gray-600 font-bold bg-white px-3 py-1 rounded-lg border border-gray-200 shadow-sm">Справа № 404-МІША</span>
                                     <span className="px-4 py-1.5 bg-red-50 text-red-700 text-xs font-black rounded-lg uppercase tracking-widest flex items-center border border-red-200 self-start sm:self-auto shadow-sm animate-pulse-slow">
-                                        <IconAlertTriangle className="w-4 h-4 mr-2 flex-shrink-0" />
+                                        <IconAlertTriangle className="w-4 h-4 mr-2 flex-shrink-0 text-red-600" />
                                         Вилучено з вільного обігу
                                     </span>
                                 </div>
@@ -553,14 +586,14 @@
                                             <div>
                                                 <p className="text-xs text-orange-400 uppercase tracking-widest font-bold mb-1">Поточне місцезнаходження</p>
                                                 <div className="font-bold text-lg flex items-start sm:items-center text-orange-600 bg-white p-3 rounded-xl border border-orange-100 shadow-sm mt-1">
-                                                    <IconMapPin className="w-6 h-6 mr-3 flex-shrink-0" />
+                                                    <IconMapPin className="w-6 h-6 mr-3 flex-shrink-0 text-orange-500" />
                                                     <span>ПТП "Анастасія" (Пункт перетримки)</span>
                                                 </div>
                                             </div>
                                             <div>
                                                 <p className="text-xs text-orange-400 uppercase tracking-widest font-bold mb-1">Статус етапування</p>
                                                 <div className="font-black text-lg text-red-600 flex items-start sm:items-center bg-red-50 p-3 rounded-xl border border-red-100 shadow-sm mt-1 animate-pulse">
-                                                    <IconClock className="w-6 h-6 mr-3 flex-shrink-0" />
+                                                    <IconClock className="w-6 h-6 mr-3 flex-shrink-0 text-red-600" />
                                                     <span>Очікує конвой (Готувати валізку)</span>
                                                 </div>
                                             </div>
@@ -587,7 +620,7 @@
                         <div className="space-y-8 animate-slide-up" style={{animationDelay: '0.1s'}}>
                             <div className="flex items-center">
                                 <div className="p-3 bg-gray-900 text-white rounded-xl mr-4 shadow-md">
-                                    <IconFingerprint className="w-6 h-6" />
+                                    <IconFingerprint className="w-6 h-6 text-gray-300" />
                                 </div>
                                 <div>
                                     <h2 className="text-xl sm:text-3xl font-display font-black text-gray-900 tracking-tight">Особова справа №404</h2>
@@ -646,7 +679,7 @@
                                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                                     <div className="bg-gray-800/60 p-5 rounded-xl border border-gray-700 hover:border-gray-500 transition-colors">
                                                         <p className="text-xs text-gray-400 uppercase tracking-widest mb-2 font-bold">Схильність до крінжу</p>
-                                                        <p className="font-black text-red-400 text-lg flex items-center tracking-tight">Критична Межа <IconSkull className="w-5 h-5 ml-2 text-red-500" /></p>
+                                                        <p className="font-black text-red-400 text-lg flex items-center tracking-tight">Критична Межа <IconSkull className="w-5 h-5 ml-2" /></p>
                                                     </div>
                                                     <div className="bg-gray-800/60 p-5 rounded-xl border border-gray-700 hover:border-gray-500 transition-colors">
                                                         <p className="text-xs text-gray-400 uppercase tracking-widest mb-2 font-bold">Рівень слухняності</p>
@@ -714,9 +747,9 @@
                                         <div className="flex items-start">
                                             <IconAlertTriangle className="w-8 h-8 mr-4 text-yellow-500 flex-shrink-0 mt-1" />
                                             <div>
-                                                <h4 className="font-display font-black text-yellow-500 text-lg sm:text-xl mb-3 tracking-wide">Особливі прикмети та Аномалії:</h4>
+                                                <h4 className="font-display font-black text-yellow-500 text-lg sm:text-xl mb-3 tracking-wide">Анамнез та Аномалії:</h4>
                                                 <p className="text-base sm:text-lg text-yellow-100/90 leading-relaxed font-medium">Відрізняється патологічною нездатністю приймати самостійні рішення. У природному середовищі існування (за комп'ютером) може проводити до 48 годин без ознак втоми.</p>
-                                                <p className="text-base sm:text-lg text-yellow-100/90 leading-relaxed font-medium mt-2">При звуках відкриття пачки китайського чаю <span className="text-white font-bold bg-yellow-900/50 px-1 rounded">Да Хун Пао</span> або при запуску локального сервера <span className="text-white font-bold bg-yellow-900/50 px-1 rounded">Vintage Story</span>, об'єкт порушує закони фізики та матеріалізується з повітря протягом 3.5 секунд.</p>
+                                                <p className="text-base sm:text-lg text-yellow-100/90 leading-relaxed font-medium mt-2">При звуках відкриття пачки елітного китайського чаю <span className="text-white font-bold bg-yellow-900/50 px-1 rounded">Да Хун Пао</span> або при запуску локального сервера <span className="text-white font-bold bg-yellow-900/50 px-1 rounded">Vintage Story</span>, об'єкт порушує закони фізики та матеріалізується з повітря протягом 3.5 секунд.</p>
                                                 <p className="mt-4 text-sm text-yellow-500/70 font-mono font-bold uppercase tracking-widest border-t border-yellow-700/50 pt-4">Резолюція: Тримати під постійним наглядом. Чай ховати в сейф.</p>
                                             </div>
                                         </div>
@@ -726,111 +759,128 @@
                         </div>
                     )}
 
-                    {/* Вкладка 3: БІОГРАФІЯ (ВЕЛИКІ ФОТО + АКОРДЕОНИ) */}
+                    {/* Вкладка 3: БІОГРАФІЯ (ВЕЛИКІ ФОТО + АКОРДЕОНИ В ОДИН РЯД) */}
                     {activeTab === 'bio' && (
                         <div className="space-y-12 animate-slide-up" style={{animationDelay: '0.1s'}}>
                             
-                            <div className="text-center max-w-4xl mx-auto mb-16 pt-4">
+                            <div className="text-center max-w-4xl mx-auto mb-12 sm:mb-16 pt-4">
                                 <span className="inline-flex items-center py-1.5 px-4 rounded-full bg-blue-50 text-[#005BAB] text-xs font-black uppercase tracking-widest mb-6 border border-blue-100 shadow-sm">
-                                    <IconAward className="w-4 h-4 mr-2" /> Досьє на Правовласника
+                                    <IconAward className="w-4 h-4 mr-2 text-[#005BAB]" /> Досьє на Правовласника
                                 </span>
                                 <h2 className="text-4xl sm:text-5xl font-display font-black text-gray-900 mb-6 tracking-tight leading-tight">Літопис Незламної Величі</h2>
                                 <p className="text-gray-500 text-lg sm:text-xl font-medium leading-relaxed">Історичні фотодокази, визначні зустрічі на найвищому державному рівні та перелік ключових подвигів, що назавжди закріпили абсолютну владу пана Решетова В.О.</p>
                             </div>
 
-                            {/* Гігантські Фотографії (Full Scale) */}
-                            <div className="space-y-12 sm:space-y-24 mb-20">
+                            {/* Гігантські Вертикальні Фотографії у Сітці */}
+                            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 sm:gap-10 mb-20">
                                 
                                 {/* Фото 1: Кабінет (Обличчя влади) */}
-                                <div className="relative w-full h-[500px] md:h-[650px] rounded-[2rem] overflow-hidden shadow-2xl group border-4 border-white">
-                                    <img src="./photo_office.jpg" alt="Решетов у кабінеті" className="absolute inset-0 w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-[1.5s]" onError={(e) => {e.target.style.display='none'; e.target.nextSibling.style.display='flex'}} />
-                                    <div className="absolute inset-0 hidden flex-col items-center justify-center text-gray-500 bg-gray-100 p-4 text-center border-2 border-dashed border-gray-300 z-10">
-                                        <IconCamera className="w-12 h-12 mb-3 text-[#005BAB]" />
-                                        <p className="text-lg font-bold">Фото не знайдено</p>
-                                        <p className="text-sm mt-1">Завантажте `photo_office.jpg` на GitHub</p>
-                                    </div>
-                                    <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/50 to-transparent opacity-90 z-0"></div>
-                                    
-                                    <div className="absolute bottom-0 left-0 p-8 md:p-16 w-full z-10 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                                        <span className="text-[#FFD500] font-black tracking-widest uppercase text-xs sm:text-sm mb-3 flex items-center drop-shadow-md">
-                                            <span className="w-2 h-2 rounded-full bg-[#FFD500] mr-3"></span> Центр управління польотами
-                                        </span>
-                                        <h3 className="text-3xl md:text-5xl font-display font-black text-white mb-4 sm:mb-6 drop-shadow-lg leading-tight">Кабінет Прийняття<br/>Доленосних Рішень</h3>
-                                        <p className="text-gray-200 text-base md:text-xl max-w-3xl leading-relaxed font-medium drop-shadow-md">
-                                            Офіційний портрет. Саме в цих стінах, у глибоких роздумах та з чашкою пуеру, пан Решетов генерує накази, від яких у Михайла холоне кров, а Анастасія покірно йде заварювати свіжий чай для сплати чергової пені.
-                                        </p>
+                                <div className="relative w-full rounded-[2rem] overflow-hidden shadow-2xl group border-4 border-white flex flex-col bg-gray-900 hover:shadow-[0_20px_50px_rgba(0,91,171,0.3)] transition-all duration-500">
+                                    <div className="relative w-full h-full min-h-[400px] overflow-hidden">
+                                        <img src="./photo_office.jpg" alt="Решетов у кабінеті" className="w-full h-full object-cover object-top group-hover:scale-[1.03] transition-transform duration-[1.5s]" onError={(e) => {e.target.style.display='none'; e.target.nextSibling.style.display='flex'}} />
+                                        <div className="absolute inset-0 hidden flex-col items-center justify-center text-gray-500 bg-gray-100 p-4 text-center z-10">
+                                            <IconCamera className="w-12 h-12 mb-3 text-[#005BAB]" />
+                                            <p className="text-lg font-bold">Фото не знайдено</p>
+                                            <p className="text-sm mt-1">Завантажте `photo_office.jpg`</p>
+                                        </div>
+                                        <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/60 to-transparent opacity-100 z-0"></div>
+                                        
+                                        <div className="absolute bottom-0 left-0 p-6 sm:p-8 w-full z-10 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                                            <span className="text-[#FFD500] font-black tracking-widest uppercase text-[10px] sm:text-xs mb-3 flex items-center drop-shadow-md">
+                                                <span className="w-2 h-2 rounded-full bg-[#FFD500] mr-2"></span> Центр управління польотами
+                                            </span>
+                                            <h3 className="text-2xl sm:text-3xl font-display font-black text-white mb-3 drop-shadow-lg leading-tight">Кабінет Прийняття<br/>Доленосних Рішень</h3>
+                                            <p className="text-gray-300 text-sm sm:text-base leading-relaxed font-medium drop-shadow-md line-clamp-4 group-hover:line-clamp-none transition-all duration-300">
+                                                Офіційний портрет. Саме в цих стінах, у глибоких роздумах та з чашкою пуеру, пан Решетов генерує накази, від яких у Михайла холоне кров, а Анастасія покірно йде заварювати свіжий чай для сплати чергової пені.
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
 
                                 {/* Фото 2: Зеленський (Передача повноважень) */}
-                                <div className="relative w-full h-[500px] md:h-[650px] rounded-[2rem] overflow-hidden shadow-2xl group border-4 border-white">
-                                    <img src="./photo_zelensky.jpg" alt="Решетов із Зеленським" className="absolute inset-0 w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-[1.5s]" onError={(e) => {e.target.style.display='none'; e.target.nextSibling.style.display='flex'}} />
-                                    <div className="absolute inset-0 hidden flex-col items-center justify-center text-gray-500 bg-gray-100 p-4 text-center border-2 border-dashed border-gray-300 z-10">
-                                        <IconCamera className="w-12 h-12 mb-3 text-[#005BAB]" />
-                                        <p className="text-lg font-bold">Фото не знайдено</p>
-                                        <p className="text-sm mt-1">Завантажте `photo_zelensky.jpg` на GitHub</p>
-                                    </div>
-                                    <div className="absolute inset-0 bg-gradient-to-t from-[#004a8b]/90 via-[#004a8b]/40 to-transparent z-0"></div>
-                                    
-                                    <div className="absolute bottom-0 right-0 p-8 md:p-16 w-full text-right z-10 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                                        <div className="flex justify-end mb-3">
-                                            <span className="bg-white/20 backdrop-blur-md px-4 py-2 rounded-xl text-white font-black tracking-widest uppercase text-xs sm:text-sm flex items-center border border-white/30 shadow-lg">
+                                <div className="relative w-full rounded-[2rem] overflow-hidden shadow-2xl group border-4 border-white flex flex-col bg-gray-900 hover:shadow-[0_20px_50px_rgba(22,163,74,0.3)] transition-all duration-500">
+                                    <div className="relative w-full h-full min-h-[400px] overflow-hidden">
+                                        <img src="./photo_zelensky.jpg" alt="Решетов із Зеленським" className="w-full h-full object-cover object-top group-hover:scale-[1.03] transition-transform duration-[1.5s]" onError={(e) => {e.target.style.display='none'; e.target.nextSibling.style.display='flex'}} />
+                                        <div className="absolute inset-0 hidden flex-col items-center justify-center text-gray-500 bg-gray-100 p-4 text-center z-10">
+                                            <IconCamera className="w-12 h-12 mb-3 text-[#005BAB]" />
+                                            <p className="text-lg font-bold">Фото не знайдено</p>
+                                            <p className="text-sm mt-1">Завантажте `photo_zelensky.jpg`</p>
+                                        </div>
+                                        <div className="absolute inset-0 bg-gradient-to-t from-[#004a8b] via-[#004a8b]/60 to-transparent opacity-90 z-0"></div>
+                                        
+                                        <div className="absolute bottom-0 left-0 p-6 sm:p-8 w-full z-10 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                                            <span className="text-green-400 font-black tracking-widest uppercase text-[10px] sm:text-xs mb-3 flex items-center drop-shadow-md">
                                                 <IconShield className="w-4 h-4 mr-2" /> Легітимізація Влади
                                             </span>
+                                            <h3 className="text-2xl sm:text-3xl font-display font-black text-white mb-3 drop-shadow-lg leading-tight">Отримання Надзвичайних<br/>Повноважень</h3>
+                                            <p className="text-blue-100 text-sm sm:text-base leading-relaxed font-medium drop-shadow-md line-clamp-4 group-hover:line-clamp-none transition-all duration-300">
+                                                Верховний Головнокомандувач особисто тисне руку пану Решетову за вагомий внесок у приборкання Михайла. <em className="text-white font-bold block mt-2">"Тримай його міцно, Вадиме, бо інакше він знову запустить той свій сервер"</em>
+                                            </p>
                                         </div>
-                                        <h3 className="text-3xl md:text-5xl font-display font-black text-white mb-4 sm:mb-6 drop-shadow-lg leading-tight">Отримання Надзвичайних<br/>Повноважень</h3>
-                                        <p className="text-blue-100 text-base md:text-xl max-w-3xl ml-auto leading-relaxed font-medium drop-shadow-md">
-                                            Верховний Головнокомандувач особисто тисне руку пану Решетову за вагомий внесок у приборкання Михайла. <br/><br/><em className="text-white font-bold opacity-90">"Тримай його міцно, Вадиме, бо інакше він знову запустить той свій сервер"</em>, — сказав Президент під час закритої наради.
-                                        </p>
                                     </div>
                                 </div>
 
                                 {/* Фото 3: Янукович (Досвід минулого) */}
-                                <div className="relative w-full h-[500px] md:h-[650px] rounded-[2rem] overflow-hidden shadow-2xl group border-4 border-white">
-                                    <img src="./photo_yanukovich.jpg" alt="Решетов із Януковичем" className="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-[1.5s]" onError={(e) => {e.target.style.display='none'; e.target.nextSibling.style.display='flex'}} />
-                                    <div className="absolute inset-0 hidden flex-col items-center justify-center text-gray-500 bg-gray-100 p-4 text-center border-2 border-dashed border-gray-300 z-10">
-                                        <IconCamera className="w-12 h-12 mb-3 text-[#005BAB]" />
-                                        <p className="text-lg font-bold">Фото не знайдено</p>
-                                        <p className="text-sm mt-1">Завантажте `photo_yanukovich.jpg` на GitHub</p>
-                                    </div>
-                                    <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/60 to-transparent z-0"></div>
-                                    
-                                    <div className="absolute top-8 left-8 md:top-12 md:left-12 z-10">
-                                        <span className="bg-red-600 text-white font-black tracking-widest uppercase text-[10px] sm:text-xs px-3 py-1.5 rounded-lg shadow-lg">Секретний Архів</span>
-                                    </div>
-                                    
-                                    <div className="absolute bottom-0 left-0 p-8 md:p-16 w-full z-10 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                                        <h3 className="text-3xl md:text-5xl font-display font-black text-white mb-4 sm:mb-6 drop-shadow-lg leading-tight">Консультації з Узурпації</h3>
-                                        <p className="text-gray-300 text-base md:text-xl max-w-3xl leading-relaxed font-medium drop-shadow-md">
-                                            Історичний майстер-клас. Секретні консультації щодо того, як легітимно і без наслідків "віджати" вільний час та волю у одного конкретно взятого друга. Досвід минулих років було ретельно проаналізовано та успішно адаптовано для контролю над Михайлом.
-                                        </p>
+                                <div className="relative w-full rounded-[2rem] overflow-hidden shadow-2xl group border-4 border-white flex flex-col bg-gray-900 hover:shadow-[0_20px_50px_rgba(220,38,38,0.3)] transition-all duration-500">
+                                    <div className="relative w-full h-full min-h-[400px] overflow-hidden">
+                                        <img src="./photo_yanukovich.jpg" alt="Решетов із Януковичем" className="w-full h-full object-cover object-top group-hover:scale-[1.03] transition-transform duration-[1.5s]" onError={(e) => {e.target.style.display='none'; e.target.nextSibling.style.display='flex'}} />
+                                        <div className="absolute inset-0 hidden flex-col items-center justify-center text-gray-500 bg-gray-100 p-4 text-center z-10">
+                                            <IconCamera className="w-12 h-12 mb-3 text-[#005BAB]" />
+                                            <p className="text-lg font-bold">Фото не знайдено</p>
+                                            <p className="text-sm mt-1">Завантажте `photo_yanukovich.jpg`</p>
+                                        </div>
+                                        <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/70 to-transparent opacity-100 z-0"></div>
+                                        
+                                        <div className="absolute top-6 right-6 z-10">
+                                            <span className="bg-red-600 text-white font-black tracking-widest uppercase text-[10px] px-3 py-1.5 rounded-lg shadow-lg shadow-red-500/50 border border-red-400">Секретний Архів</span>
+                                        </div>
+                                        
+                                        <div className="absolute bottom-0 left-0 p-6 sm:p-8 w-full z-10 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                                            <span className="text-red-400 font-black tracking-widest uppercase text-[10px] sm:text-xs mb-3 flex items-center drop-shadow-md">
+                                                <span className="w-2 h-2 rounded-full bg-red-500 mr-2"></span> Обмін Досвідом
+                                            </span>
+                                            <h3 className="text-2xl sm:text-3xl font-display font-black text-white mb-3 drop-shadow-lg leading-tight">Консультації<br/>з Узурпації</h3>
+                                            <p className="text-gray-300 text-sm sm:text-base leading-relaxed font-medium drop-shadow-md line-clamp-4 group-hover:line-clamp-none transition-all duration-300">
+                                                Історичний майстер-клас. Секретні консультації щодо того, як легітимно і без наслідків "віджати" вільний час та волю у одного конкретно взятого друга. Досвід минулих років було успішно адаптовано.
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
 
                             </div>
 
                             {/* Реєстр Подвигів (Акордеони) */}
-                            <div className="bg-white rounded-3xl shadow-soft border border-gray-100 p-8 sm:p-12 mt-12">
-                                <h3 className="text-2xl sm:text-3xl font-display font-black text-gray-900 mb-8 flex items-center justify-center text-center">
-                                    <IconShield className="w-8 h-8 mr-4 text-[#005BAB]" />
-                                    Офіційний Реєстр Подвигів
-                                </h3>
-                                <div className="max-w-4xl mx-auto space-y-2">
-                                    <Accordion title="ПОДВИГ I: Операція «Чайний Шлях»" icon={IconCoffee} color="blue">
-                                        <p className="text-gray-600 leading-relaxed text-base sm:text-lg">Успішно примусив Михайла відмовитися від дешевої пакетованої "полови" та силоміць перевів його на преміальні сорти китайського чаю. Відтепер об'єкт здатен відрізнити Шу Пуер від Шен Пуеру навіть якщо розбудити його о 3-й ночі, а всі витрати на закупівлю чаю покладено на генпідрядника (Анастасію).</p>
-                                    </Accordion>
+                            <div className="bg-white rounded-[2.5rem] shadow-soft border border-gray-100 p-8 sm:p-12 md:p-16 mt-12 relative overflow-hidden">
+                                {/* Декоративний фон */}
+                                <div className="absolute top-0 right-0 transform translate-x-1/3 -translate-y-1/4 opacity-5 pointer-events-none">
+                                    <IconShield className="w-96 h-96" />
+                                </div>
 
-                                    <Accordion title="ПОДВИГ II: Приборкання Крінжу" icon={IconSkull} color="red">
-                                        <p className="text-gray-600 leading-relaxed text-base sm:text-lg">Епічна та кровопролитна битва 2024 року. Пан Решетов силою власного беззаперечного авторитету та прямими погрозами назавжди вимкнути інтернет зупинив неконтрольовану генерацію крінжу з боку об'єкта. Встановлено жорсткі ліміти на використання сумнівних жартів.</p>
-                                    </Accordion>
+                                <div className="relative z-10 max-w-4xl mx-auto">
+                                    <h3 className="text-2xl sm:text-4xl font-display font-black text-gray-900 mb-10 flex items-center justify-center text-center">
+                                        <div className="p-3 bg-gradient-to-br from-[#005BAB] to-blue-600 text-white rounded-2xl mr-4 shadow-lg">
+                                            <IconShield className="w-6 h-6 sm:w-8 sm:h-8" />
+                                        </div>
+                                        <span className="text-gradient-gold drop-shadow-sm">Офіційний Реєстр Подвигів</span>
+                                    </h3>
+                                    
+                                    <div className="space-y-4">
+                                        <Accordion title="ПОДВИГ I: Операція «Чайний Шлях»" icon={IconCoffee} color="blue" defaultOpen={true}>
+                                            <p className="text-gray-600 leading-relaxed text-base sm:text-lg font-medium">Успішно примусив Михайла відмовитися від дешевої пакетованої "полови" та силоміць перевів його на преміальні сорти китайського чаю. Відтепер об'єкт здатен відрізнити Шу Пуер від Шен Пуеру навіть якщо розбудити його о 3-й ночі, а всі витрати на закупівлю чаю покладено на генпідрядника (Анастасію).</p>
+                                        </Accordion>
 
-                                    <Accordion title="ПОДВИГ III: Насадження Лору Warhammer 40k" icon={IconTarget} color="purple">
-                                        <p className="text-gray-600 leading-relaxed text-base sm:text-lg">Проведення багатогодинних примусових просвітницьких лекцій про історію Імперіуму Людей. Після застосування методів психологічного тиску, Михайло тепер чітко знає, що Імператор захищає, хто такі Некрони, і чому Єресь Хоруса — це трагедія галактичного масштабу, з якою не жартують.</p>
-                                    </Accordion>
+                                        <Accordion title="ПОДВИГ II: Приборкання Крінжу" icon={IconSkull} color="red">
+                                            <p className="text-gray-600 leading-relaxed text-base sm:text-lg font-medium">Епічна та кровопролитна битва 2024 року. Пан Решетов силою власного беззаперечного авторитету та прямими погрозами назавжди вимкнути інтернет зупинив неконтрольовану генерацію крінжу з боку об'єкта. Встановлено жорсткі ліміти на використання сумнівних жартів.</p>
+                                        </Accordion>
 
-                                    <Accordion title="ПОДВИГ IV: Повна Націоналізація Активу" icon={IconUserCheck} color="green">
-                                        <p className="text-gray-600 leading-relaxed text-base sm:text-lg">Фінальний етап узурпації. Майстерне юридичне закріплення ексклюзивних прав власності через Указ Президента України №404/2026. Відтепер Михайло Завалковський перестав бути суб'єктом права і офіційно став ліцензійним активом пана Решетова з інвентарним номером.</p>
-                                    </Accordion>
+                                        <Accordion title="ПОДВИГ III: Насадження Лору Warhammer 40k" icon={IconTarget} color="purple">
+                                            <p className="text-gray-600 leading-relaxed text-base sm:text-lg font-medium">Проведення багатогодинних примусових просвітницьких лекцій про історію Імперіуму Людей. Після застосування методів психологічного тиску, Михайло тепер чітко знає, що Імператор захищає, хто такі Некрони, і чому Єресь Хоруса — це трагедія галактичного масштабу, з якою не жартують.</p>
+                                        </Accordion>
+
+                                        <Accordion title="ПОДВИГ IV: Повна Націоналізація Активу" icon={IconUserCheck} color="green">
+                                            <p className="text-gray-600 leading-relaxed text-base sm:text-lg font-medium">Фінальний етап узурпації. Майстерне юридичне закріплення ексклюзивних прав власності через Указ Президента України №404/2026. Відтепер Михайло Завалковський перестав бути суб'єктом права і офіційно став ліцензійним активом пана Решетова з інвентарним номером.</p>
+                                        </Accordion>
+                                    </div>
                                 </div>
                             </div>
 
@@ -905,7 +955,7 @@
                                 <div className="p-6 sm:p-10 lg:w-1/2 border-b lg:border-b-0 lg:border-r border-gray-100 bg-white relative z-10">
                                     <div className="flex items-center mb-8">
                                         <div className="p-3 bg-blue-50 text-[#005BAB] rounded-xl mr-4 border border-blue-100">
-                                            <IconMail className="w-6 h-6" />
+                                            <IconMail className="w-6 h-6 text-[#005BAB]" />
                                         </div>
                                         <h3 className="text-2xl font-display font-black text-gray-900">Електронна приймальня</h3>
                                     </div>
@@ -929,7 +979,7 @@
                                             <textarea name="message" rows="5" required className="w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#005BAB] focus:border-[#005BAB] focus:bg-white outline-none transition-all resize-none font-medium" placeholder="Він знову ігнорує мої прохання і грає в комп'ютер..."></textarea>
                                         </div>
                                         <button type="submit" className="w-full bg-gradient-to-r from-[#004a8b] to-[#005BAB] text-white font-black py-4 px-6 rounded-xl hover:shadow-lg hover:shadow-blue-500/30 hover:scale-[1.02] transition-all flex justify-center items-center group mt-4 tracking-wider uppercase text-sm">
-                                            <IconMail className="w-5 h-5 mr-3 group-hover:-translate-y-1 group-hover:translate-x-1 transition-transform" />
+                                            <IconMail className="w-5 h-5 mr-3 group-hover:-translate-y-1 group-hover:translate-x-1 transition-transform text-white" />
                                             Відправити офіційний запит
                                         </button>
                                     </form>
@@ -942,7 +992,7 @@
                                         {/* Карточка адреси */}
                                         <div className="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow flex items-center group">
                                             <div className="p-4 bg-blue-50 rounded-xl mr-5 text-[#005BAB] group-hover:bg-[#005BAB] group-hover:text-white transition-colors">
-                                                <IconMapPin className="w-6 h-6" />
+                                                <IconMapPin className="w-6 h-6 text-inherit" />
                                             </div>
                                             <div>
                                                 <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">Штаб-квартира</p>
@@ -951,9 +1001,9 @@
                                         </div>
                                         
                                         {/* Карточка телефону */}
-                                        <a href="tel:+380991869659" className="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow flex items-center group block w-full text-left">
+                                        <a href="tel:+380991869659" className="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow flex items-center group block w-full text-left cursor-pointer">
                                             <div className="p-4 bg-green-50 rounded-xl mr-5 text-green-600 group-hover:bg-green-500 group-hover:text-white transition-colors shadow-sm">
-                                                <IconPhone className="w-6 h-6" />
+                                                <IconPhone className="w-6 h-6 text-inherit" />
                                             </div>
                                             <div>
                                                 <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">Гаряча лінія</p>
@@ -983,9 +1033,9 @@
                                                 href="https://share.google/VN1PXH4cp1atRhgCl" 
                                                 target="_blank" 
                                                 rel="noreferrer"
-                                                className="absolute bottom-5 left-5 right-5 bg-[#FFD500] text-[#005BAB] font-black py-4 px-4 rounded-xl text-center shadow-xl hover:bg-white hover:scale-[1.02] transition-all flex justify-center items-center border-2 border-transparent hover:border-[#FFD500] uppercase tracking-wider text-sm"
+                                                className="absolute bottom-5 left-5 right-5 bg-[#FFD500] text-[#005BAB] font-black py-4 px-4 rounded-xl text-center shadow-xl hover:bg-white hover:scale-[1.02] transition-all flex justify-center items-center border-2 border-transparent hover:border-[#FFD500] uppercase tracking-wider text-sm pointer-events-auto"
                                             >
-                                                <IconExternalLink className="w-5 h-5 mr-3" />
+                                                <IconExternalLink className="w-5 h-5 mr-3 text-[#005BAB]" />
                                                 Прокласти маршрут на карті
                                             </a>
                                         </div>
@@ -1030,17 +1080,17 @@
                             <div className="bg-gradient-to-r from-gray-100 to-white border-b border-gray-200 px-5 sm:px-8 py-4 flex justify-between items-center sticky top-0 z-20 shadow-sm">
                                 <div className="flex items-center space-x-3 text-gray-700 truncate mr-4">
                                     <div className="p-2 bg-blue-100 rounded-lg text-[#005BAB] border border-blue-200">
-                                        <IconFileText className="w-5 h-5 flex-shrink-0" />
+                                        <IconFileText className="w-5 h-5 flex-shrink-0 text-[#005BAB]" />
                                     </div>
                                     <span className="font-bold text-sm sm:text-base truncate font-display">Оригінал документа</span>
                                 </div>
                                 <div className="flex space-x-3 flex-shrink-0">
                                     <button onClick={() => window.print()} className="bg-white border border-gray-200 hover:bg-blue-50 text-gray-700 hover:text-[#005BAB] flex items-center px-4 py-2.5 rounded-xl text-sm font-bold transition-all shadow-sm" title="Роздрукувати указ">
-                                        <IconDownload className="w-4 h-4 sm:mr-2" />
+                                        <IconDownload className="w-4 h-4 sm:mr-2 text-inherit" />
                                         <span className="hidden sm:inline">Друк</span>
                                     </button>
                                     <button onClick={() => setSelectedDecree(null)} className="bg-red-50 hover:bg-red-500 text-red-600 hover:text-white transition-colors rounded-xl p-2.5 shadow-sm border border-red-100 group">
-                                        <IconX className="w-5 h-5 group-hover:rotate-90 transition-transform" />
+                                        <IconX className="w-5 h-5 group-hover:rotate-90 transition-transform text-inherit" />
                                     </button>
                                 </div>
                             </div>
